@@ -6,7 +6,7 @@
 
 ### DBMS Assignment: Requirements, ER Diagram and Relational Schema
 
-**Prepared by:** [Your Name]  
+**Prepared by:** Vasanthakumar 
 **Register Number:** [Your Register Number]  
 **Programme / Department:** [Your Department/Degree, e.g., B.Sc. AI & DS]  
 **Institution:** [Your College / University Name]  
@@ -105,7 +105,7 @@ The system models core online shopping functionalities, including User Managemen
 
 The ER diagram was modeled in StarUML using **Crow's Foot Notation** to represent primary keys, foreign keys, and cardinalities:
 
-![ER Diagram](./Amazon-E-Commerce ER Diagram1 jpg)
+![ER Diagram](./er-diagram.png)
 
 ---
 
