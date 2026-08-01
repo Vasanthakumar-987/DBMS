@@ -1,88 +1,83 @@
 # 🛒 Amazon E-Commerce Database Design
 
-![DBMS](https://img.shields.io/badge/DBMS-Project-blue)
-![SQL](https://img.shields.io/badge/SQL-MySQL-orange)
-![Normalization](https://img.shields.io/badge/Database-3NF-success)
+![DBMS](https://img.shields.io/badge/DBMS-Project-blue?style=for-the-badge&logo=mysql)
+![SQL](https://img.shields.io/badge/SQL-MySQL-orange?style=for-the-badge&logo=mysql)
+![Normalization](https://img.shields.io/badge/Database-3NF%20Normalized-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 
-### DBMS Assignment: Requirements, ER Diagram and Relational Schema
+### 🎓 DBMS Academic Project
 
-**Prepared by:** Vasanthakumar 
-**Register Number:** [Your Register Number]  
-**Programme / Department:** [Your Department/Degree, e.g., B.Sc. AI & DS]  
-**Institution:** [Your College / University Name]  
+- **Prepared by:** Vasanthakumar  
+- **Register Number:** AADS25031 
+- **Programme / Department:** B.sc AI&DS 
+- **Institution:** AMET UNIVERSITY 
 
 ---
 
 ## 📌 Project Overview
 
-This project presents a structured database design for an Amazon-style E-Commerce platform developed as part of the **Database Management Systems (DBMS)** coursework.
+This repository features a complete relational database design for an **Amazon-style E-Commerce Platform** developed for the **Database Management Systems (DBMS)** coursework.
 
-The system models core online shopping functionalities, including User Management, Product Catalogs, Shopping Carts, Order Processing, Payments, and Customer Reviews. The conceptual design was created using **StarUML**, converted into a **3NF Relational Schema**, and fully defined using **SQL (DDL)**.
+The database models core operational workflows including **User Management**, **Product Catalogs**, **Shopping Carts**, **Order Processing**, **Payments**, and **Customer Reviews**. Developed conceptually using **StarUML**, converted into a **3NF Relational Schema**, and fully defined using **SQL Data Definition Language (DDL)**.
 
-*Note: This is an academic database model created for learning purposes and does not represent Amazon's actual enterprise database.*
+> ℹ️ **Note:** *This is an academic schema created for educational purposes and does not represent Amazon's proprietary enterprise architecture.*
 
 ---
 
 ## 📑 Table of Contents
 
-- [Objectives](#-objectives)
-- [Functional Requirements](#-functional-requirements)
-- [Non-Functional Requirements](#-non-functional-requirements)
-- [Database Entities & Schema Matrix](#-database-entities--schema-matrix)
-- [ER Diagram](#-er-diagram)
-- [Relational Schema](#-relational-schema)
-- [SQL Schema Implementation](#-sql-schema-implementation)
-- [Database Normalization](#-database-normalization)
-- [Technologies Used](#-technologies-used)
-- [Conclusion](#-conclusion)
+- [📌 Project Overview](#-project-overview)
+- [🎯 Objectives](#-objectives)
+- [⚙️ Functional Requirements](#️-functional-requirements)
+- [🔒 Non-Functional Requirements](#-non-functional-requirements)
+- [🗂 Database Entities \& Schema Matrix](#-database-entities--schema-matrix)
+- [📊 ER Diagram](#-er-diagram)
+- [🔗 Relational Schema](#-relational-schema)
+- [💻 SQL Schema Implementation](#-sql-schema-implementation)
+- [📐 Database Normalization (3NF)](#-database-normalization-3nf)
+- [🛠 Technologies Used](#-technologies-used)
+- [🏁 Conclusion](#-conclusion)
 
 ---
 
 ## 🎯 Objectives
 
-- Design an efficient relational database for an e-commerce ecosystem.
-- Identify key system entities, attributes, primary keys, and foreign keys.
-- Create an Entity-Relationship (ER) Diagram using Crow's Foot notation in StarUML.
-- Convert the conceptual ER model into a normalized Relational Schema.
-- Implement the complete schema using SQL Data Definition Language (DDL).
-- Ensure data integrity and eliminate redundancy by applying Third Normal Form (3NF).
+* **Conceptual Modeling:** Identify key business entities, relationships, attributes, primary keys, and foreign keys.
+* **Diagrammatic Representation:** Build a clear Entity-Relationship (ER) Diagram using **Crow's Foot Notation** in StarUML.
+* **Relational Mapping:** Convert the ER model into an optimized Relational Schema.
+* **Database Implementation:** Write robust, production-ready SQL (DDL) scripts with foreign key cascading rules.
+* **Data Integrity:** Eliminate redundant data and anomaly risks by adhering strictly to **Third Normal Form (3NF)** rules.
 
 ---
 
-## ⚙ Functional Requirements
+## ⚙️ Functional Requirements
 
-### 1. User Management
-- Customer Registration & Login Authentication.
-- User Profile management (Name, Email, Password).
+### 1. 👤 User Management
+- User registration, login authentication, and profile updates (`user_id`, `name`, `email`, `password`).
 
-### 2. Product Management
-- Browse product catalog with titles, pricing, and stock levels.
-- Search and filter products efficiently.
+### 2. 📦 Product Catalog
+- Product browsing with structured titles, unit pricing, and real-time inventory tracking (`stock`).
 
-### 3. Shopping Cart
-- Manage customer carts (Add products, remove items, update quantities).
+### 3. 🛒 Shopping Cart System
+- Dynamic cart management enabling users to add, remove, or modify product quantities.
 
-### 4. Order Management
-- Checkout cart items to place orders.
-- Record order placement dates and total transaction amounts.
+### 4. 🛍️ Order Management
+- Order placement conversion from cart items, retaining historical unit prices and transaction totals.
 
-### 5. Payment System
-- Support multiple payment modes (UPI, Credit/Debit Cards, Net Banking, COD).
-- Track transaction status (e.g., Pending, Completed).
+### 5. 💳 Payment Processing
+- Multi-mode payment support (UPI, Cards, Net Banking, COD) tracking explicit status states (`Pending`, `Completed`).
 
-### 6. Review & Rating
-- Submit ratings and detailed text comments on purchased products.
+### 6. ⭐ Reviews & Ratings
+- Verified customer feedback mechanism capturing numeric ratings and detailed product commentary.
 
 ---
 
 ## 🔒 Non-Functional Requirements
 
-- **High Performance:** Optimized schema for low-latency query execution.
-- **Data Security:** Protected user password storage and structured constraints.
-- **Scalability:** Flexible relational layout to easily extend with new features.
-- **Reliability:** Strict foreign key integrity constraints to prevent orphaned records.
-- **High Availability:** Lightweight layout designed for quick recovery and continuous uptime.
-- **Usability:** Intuitive entity architecture mapping directly to real-world workflows.
+* **Performance:** Schema design optimized for quick query retrieval and join efficiency.
+* **Data Integrity:** Enforced referential integrity using strict `FOREIGN KEY` constraints and `ON DELETE CASCADE`.
+* **Scalability:** Modular structural footprint easily adaptable to new entity additions (e.g., Sellers, Shipping Tracking).
+* **Security:** Structured fields capable of storing encrypted/hashed credentials.
 
 ---
 
@@ -90,47 +85,53 @@ The system models core online shopping functionalities, including User Managemen
 
 | Entity | Primary Key (PK) | Foreign Keys (FK) | Description |
 | :--- | :--- | :--- | :--- |
-| **USER** | `user_id` | *None* | Stores customer registration and credential details |
-| **PRODUCT** | `product_id` | *None* | Stores item catalog, pricing, and available stock |
-| **CART** | `cart_id` | `user_id` | Links a unique shopping cart to a customer |
-| **CART_ITEM** | `cart_item_id` | `cart_id`, `product_id` | Holds specific quantities of items added to a cart |
-| **ORDERS** | `order_id` | `user_id` | Tracks order dates, buyer IDs, and total costs |
-| **ORDER_ITEM** | `order_item_id` | `order_id`, `product_id` | Stores individual line-items inside an order |
-| **PAYMENT** | `payment_id` | `order_id` | Records payment methods and transaction status |
-| **REVIEW** | `review_id` | `user_id`, `product_id` | Stores user ratings and product feedback |
+| **`USER`** | `user_id` | *None* | Customer registration details and login credentials |
+| **`PRODUCT`** | `product_id` | *None* | Item details, pricing, and available stock levels |
+| **`CART`** | `cart_id` | `user_id` | Active shopping cart assigned uniquely to a user |
+| **`CART_ITEM`** | `cart_item_id` | `cart_id`, `product_id` | Specific product line-items contained in a shopping cart |
+| **`ORDERS`** | `order_id` | `user_id` | Placed order records, execution timestamps, and total cost |
+| **`ORDER_ITEM`** | `order_item_id` | `order_id`, `product_id` | Individual line-items and historical unit prices inside an order |
+| **`PAYMENT`** | `payment_id` | `order_id` | Payment transaction records and execution status |
+| **`REVIEW`** | `review_id` | `user_id`, `product_id` | Customer product ratings and written feedback |
 
 ---
 
 ## 📊 ER Diagram
 
-The ER diagram was modeled in StarUML using **Crow's Foot Notation** to represent primary keys, foreign keys, and cardinalities:
+The ER Diagram was modeled using **StarUML** with **Crow's Foot Notation** to visually define cardinality and relational bounds across all tables:
 
-![ER Diagram](./er-diagram.png)
+<p align="center">
+  <img src="Amazon-E-Commerce ER Diagram1 jpg_2.jpg" alt="Amazon E-Commerce ER Diagram" width="100%">
+</p>
 
 ---
 
 ## 🔗 Relational Schema
 
-Below is the normalized relational database schema derived from the ER diagram:
+Below is the normalized relational database schema mapped from the ER Diagram:
 
-> **Key:** **`Bold & Underlined`** = Primary Key (PK) | *Italics* = Foreign Key (FK)
+> 🗝️ **Legend:** **`Bold & Underlined`** = Primary Key (PK) | *Italics* = Foreign Key (FK)
 
-- **USER** (**`user_id`**, name, email, password)
-- **PRODUCT** (**`product_id`**, title, price, stock)
-- **CART** (**`cart_id`**, *user_id*)
-- **CART_ITEM** (**`cart_item_id`**, *cart_id*, *product_id*, quantity)
-- **ORDERS** (**`order_id`**, *user_id*, order_date, total_amount)
-- **ORDER_ITEM** (**`order_item_id`**, *order_id*, *product_id*, quantity, price)
-- **PAYMENT** (**`payment_id`**, *order_id*, payment_method, status)
-- **REVIEW** (**`review_id`**, *user_id*, *product_id*, rating, comment)
+* **USER** (**`user_id`**, name, email, password)
+* **PRODUCT** (**`product_id`**, title, price, stock)
+* **CART** (**`cart_id`**, *user_id*)
+* **CART_ITEM** (**`cart_item_id`**, *cart_id*, *product_id*, quantity)
+* **ORDERS** (**`order_id`**, *user_id*, order_date, total_amount)
+* **ORDER_ITEM** (**`order_item_id`**, *order_id*, *product_id*, quantity, price)
+* **PAYMENT** (**`payment_id`**, *order_id*, payment_method, status)
+* **REVIEW** (**`review_id`**, *user_id*, *product_id*, rating, comment)
 
 ---
 
 ## 💻 SQL Schema Implementation
 
-Complete DDL Script to instantiate the database schema:
+Below is the complete, runnable SQL Data Definition Language (DDL) script to set up the database tables and maintain integrity constraints:
 
 ```sql
+-- Create Database
+CREATE DATABASE IF NOT EXISTS amazon_db;
+USE amazon_db;
+
 -- 1. Create USER Table
 CREATE TABLE USER (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -198,8 +199,50 @@ CREATE TABLE REVIEW (
     review_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     product_id INT,
-    rating INT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
     FOREIGN KEY (user_id) REFERENCES USER(user_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id) ON DELETE CASCADE
 );
+```
+
+---
+
+## 📐 Database Normalization (3NF)
+
+To eliminate data redundancy, avoid anomalies (insertion, update, deletion), and maintain high performance, the schema follows standard database normalization rules up to **Third Normal Form (3NF)**:
+
+### 1️⃣ First Normal Form (1NF)
+* **Requirement:** Atomic values (no repeating groups or multi-valued attributes) and unique row keys.
+* **Implementation:** Every column contains non-divisible scalar values (e.g., individual `quantity`, single `price`). Primary keys are defined for all entities.
+
+### 2️⃣ Second Normal Form (2NF)
+* **Requirement:** Must be in 1NF and have no partial dependencies (all non-key attributes must depend fully on the primary key).
+* **Implementation:** Multi-item containers like carts and orders are decoupled into composite structure handling tables (`CART_ITEM` and `ORDER_ITEM`). Attributes like `quantity` and `price` depend on the explicit surrogate keys (`cart_item_id`, `order_item_id`).
+
+### 3️⃣ Third Normal Form (3NF)
+* **Requirement:** Must be in 2NF and have no transitive dependencies (non-key attributes depend *only* on the candidate primary key).
+* **Implementation:** Payment processing details (`PAYMENT`), user credentials (`USER`), and order records (`ORDERS`) are segregated into dedicated tables linked strictly by Foreign Keys. Modifying user profile attributes does not spill over or affect historic order details.
+
+---
+
+## 🛠 Technologies Used
+
+| Category | Tool / Technology |
+| :--- | :--- |
+| **Database Engine** | MySQL 8.0+ |
+| **Language** | SQL (Structured Query Language - DDL) |
+| **Data Modeling** | StarUML (Crow's Foot ER Notation) |
+| **Documentation** | Markdown / Shields.io Badges |
+
+---
+
+## 🏁 Conclusion
+
+This database design successfully establishes a robust relational foundation for an e-commerce platform. By modeling core operational entities, enforcing strict primary and foreign key constraints, and applying 3NF normalization guidelines, the system guarantees:
+
+1. **Data Consistency:** Prevents orphaned records via `ON DELETE CASCADE` constraints.
+2. **Elimination of Redundancy:** Decouples user data, products, orders, and payment tracking.
+3. **Historical Accuracy:** Captures explicit line-item unit pricing (`ORDER_ITEM.price`) independently of future product catalog price adjustments (`PRODUCT.price`).
+
+The structured SQL implementation provides a seamless path for integration into modern web backends (e.g., Node.js, Python/Django, or Java Spring Boot).
