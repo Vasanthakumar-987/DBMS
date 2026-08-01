@@ -100,35 +100,23 @@ The database models core operational workflows including **User Management**, **
 
 The ER Diagram was modeled using **StarUML** with **Crow's Foot Notation** to visually define cardinality and relational bounds across all tables:
 
-<p align="center">
-  <img src="./er-diagram.jpg.jpg" alt="Amazon E-Commerce ER Diagram" width="100%">
-</p>
-
-### 🔄 Interactive Native Diagram View
-
 ```mermaid
 erDiagram
-    USER ||--o| CART : "has"
-    USER ||--o{ ORDERS : "places"
-    USER ||--o{ REVIEW : "writes"
-    PRODUCT ||--o{ REVIEW : "receives"
-    CART ||--o{ CART_ITEM : "contains"
-    PRODUCT ||--o{ CART_ITEM : "added to"
-    ORDERS ||--o| PAYMENT : "processed by"
-    ORDERS ||--o{ ORDER_ITEM : "includes"
-    PRODUCT ||--o{ ORDER_ITEM : "sold as"
+    USER ||--o| CART : ""
+    USER ||--o{ ORDERS : ""
+    USER ||--o{ REVIEW : ""
+    PRODUCT ||--o{ REVIEW : ""
+    CART ||--o{ CART_ITEM : ""
+    PRODUCT ||--o{ CART_ITEM : ""
+    ORDERS ||--o| PAYMENT : ""
+    ORDERS ||--o{ ORDER_ITEM : ""
+    PRODUCT ||--o{ ORDER_ITEM : ""
 
     USER {
         int user_id PK
         string name
         string email
         string password
-    }
-    PRODUCT {
-        int product_id PK
-        string title
-        decimal price
-        int stock
     }
     CART {
         int cart_id PK
@@ -140,24 +128,11 @@ erDiagram
         int product_id FK
         int quantity
     }
-    ORDERS {
-        int order_id PK
-        int user_id FK
-        datetime order_date
-        decimal total_amount
-    }
-    ORDER_ITEM {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
+    PRODUCT {
+        int product_id PK
+        string title
         decimal price
-    }
-    PAYMENT {
-        int payment_id PK
-        int order_id FK
-        string payment_method
-        string status
+        int stock
     }
     REVIEW {
         int review_id PK
@@ -165,4 +140,23 @@ erDiagram
         int product_id FK
         int rating
         string comment
+    }
+    ORDERS {
+        int order_id PK
+        int user_id FK
+        datetime order_date
+        decimal total_amount
+    }
+    PAYMENT {
+        int payment_id PK
+        int order_id FK
+        string payment_method
+        string status
+    }
+    ORDER_ITEM {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal price
     }
