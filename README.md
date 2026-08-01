@@ -16,9 +16,9 @@
 
 ## 📌 Project Overview
 
-This repository features a complete relational database design for an **Amazon-style E-Commerce Platform** developed as part of the **Database Management Systems (DBMS)** coursework.
+This repository features a complete relational database design for an **Amazon-style E-Commerce Platform** developed for the **Database Management Systems (DBMS)** coursework.
 
-The database models core operational workflows including **User Management**, **Product Catalogs**, **Shopping Carts**, **Order Processing**, **Payments**, and **Customer Reviews**. Developed conceptually using **StarUML**, converted into a **3NF Relational Schema**, and fully implemented using **SQL Data Definition Language (DDL)**.
+The database models core operational workflows including **User Management**, **Product Catalogs**, **Shopping Carts**, **Order Processing**, **Payments**, and **Customer Reviews**. Developed conceptually using **StarUML**, converted into a **3NF Relational Schema**, and fully defined using **SQL Data Definition Language (DDL)**.
 
 > ℹ️ **Note:** *This is an academic schema created for educational purposes and does not represent Amazon's proprietary enterprise architecture.*
 
@@ -100,63 +100,149 @@ The database models core operational workflows including **User Management**, **
 
 The ER Diagram was modeled using **StarUML** with **Crow's Foot Notation** to visually define cardinality and relational bounds across all tables:
 
-```mermaid
-erDiagram
-    USER ||--o| CART : ""
-    USER ||--o{ ORDERS : ""
-    USER ||--o{ REVIEW : ""
-    PRODUCT ||--o{ REVIEW : ""
-    CART ||--o{ CART_ITEM : ""
-    PRODUCT ||--o{ CART_ITEM : ""
-    ORDERS ||--o| PAYMENT : ""
-    ORDERS ||--o{ ORDER_ITEM : ""
-    PRODUCT ||--o{ ORDER_ITEM : ""
+<p align="center">
+  <img src="Amazon-E-Commerce ER Diagram1 jpg_2.jpg" alt="Amazon E-Commerce ER Diagram" width="100%">
+</p>
 
-    USER {
-        int user_id PK
-        string name
-        string email
-        string password
-    }
-    CART {
-        int cart_id PK
-        int user_id FK
-    }
-    CART_ITEM {
-        int cart_item_id PK
-        int cart_id FK
-        int product_id FK
-        int quantity
-    }
-    PRODUCT {
-        int product_id PK
-        string title
-        decimal price
-        int stock
-    }
-    REVIEW {
-        int review_id PK
-        int user_id FK
-        int product_id FK
-        int rating
-        string comment
-    }
-    ORDERS {
-        int order_id PK
-        int user_id FK
-        datetime order_date
-        decimal total_amount
-    }
-    PAYMENT {
-        int payment_id PK
-        int order_id FK
-        string payment_method
-        string status
-    }
-    ORDER_ITEM {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
-        decimal price
-    }
+---
+
+## 🔗 Relational Schema
+
+Below is the normalized relational database schema mapped from the ER Diagram:
+
+> 🗝️ **Legend:** **`Bold & Underlined`** = Primary Key (PK) | *Italics* = Foreign Key (FK)
+
+* **USER** (**`user_id`**, name, email, password)
+* **PRODUCT** (**`product_id`**, title, price, stock)
+* **CART** (**`cart_id`**, *user_id*)
+* **CART_ITEM** (**`cart_item_id`**, *cart_id*, *product_id*, quantity)
+* **ORDERS** (**`order_id`**, *user_id*, order_date, total_amount)
+* **ORDER_ITEM** (**`order_item_id`**, *order_id*, *product_id*, quantity, price)
+* **PAYMENT** (**`payment_id`**, *order_id*, payment_method, status)
+* **REVIEW** (**`review_id`**, *user_id*, *product_id*, rating, comment)
+
+---
+
+## 💻 SQL Schema Implementation
+
+Below is the complete, runnable SQL Data Definition Language (DDL) script to set up the database tables and maintain integrity constraints:
+
+```sql
+-- Create Database
+CREATE DATABASE IF NOT EXISTS amazon_db;
+USE amazon_db;
+
+-- 1. Create USER Table
+CREATE TABLE USER (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- 2. Create PRODUCT Table
+CREATE TABLE PRODUCT (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(150) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    stock INT NOT NULL DEFAULT 0
+);
+
+-- 3. Create CART Table
+CREATE TABLE CART (
+    cart_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT UNIQUE,
+    FOREIGN KEY (user_id) REFERENCES USER(user_id) ON DELETE CASCADE
+);
+
+-- 4. Create CART_ITEM Table
+CREATE TABLE CART_ITEM (
+    cart_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    cart_id INT,
+    product_id INT,
+    quantity INT DEFAULT 1,
+    FOREIGN KEY (cart_id) REFERENCES CART(cart_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id) ON DELETE CASCADE
+);
+
+-- 5. Create ORDERS Table
+CREATE TABLE ORDERS (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES USER(user_id) ON DELETE CASCADE
+);
+
+-- 6. Create ORDER_ITEM Table
+CREATE TABLE ORDER_ITEM (
+    order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    product_id INT,
+    quantity INT DEFAULT 1,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id) ON DELETE CASCADE
+);
+
+-- 7. Create PAYMENT Table
+CREATE TABLE PAYMENT (
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT UNIQUE,
+    payment_method VARCHAR(50) NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id) ON DELETE CASCADE
+);
+
+-- 8. Create REVIEW Table
+CREATE TABLE REVIEW (
+    review_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    product_id INT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    FOREIGN KEY (user_id) REFERENCES USER(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id) ON DELETE CASCADE
+);
+```
+
+---
+
+## 📐 Database Normalization (3NF)
+
+To eliminate data redundancy, avoid anomalies (insertion, update, deletion), and maintain high performance, the schema follows standard database normalization rules up to **Third Normal Form (3NF)**:
+
+### 1️⃣ First Normal Form (1NF)
+* **Requirement:** Atomic values (no repeating groups or multi-valued attributes) and unique row keys.
+* **Implementation:** Every column contains non-divisible scalar values (e.g., individual `quantity`, single `price`). Primary keys are defined for all entities.
+
+### 2️⃣ Second Normal Form (2NF)
+* **Requirement:** Must be in 1NF and have no partial dependencies (all non-key attributes must depend fully on the primary key).
+* **Implementation:** Multi-item containers like carts and orders are decoupled into composite structure handling tables (`CART_ITEM` and `ORDER_ITEM`). Attributes like `quantity` and `price` depend on the explicit surrogate keys (`cart_item_id`, `order_item_id`).
+
+### 3️⃣ Third Normal Form (3NF)
+* **Requirement:** Must be in 2NF and have no transitive dependencies (non-key attributes depend *only* on the candidate primary key).
+* **Implementation:** Payment processing details (`PAYMENT`), user credentials (`USER`), and order records (`ORDERS`) are segregated into dedicated tables linked strictly by Foreign Keys. Modifying user profile attributes does not spill over or affect historic order details.
+
+---
+
+## 🛠 Technologies Used
+
+| Category | Tool / Technology |
+| :--- | :--- |
+| **Database Engine** | MySQL 8.0+ |
+| **Language** | SQL (Structured Query Language - DDL) |
+| **Data Modeling** | StarUML (Crow's Foot ER Notation) |
+| **Documentation** | Markdown / Shields.io Badges |
+
+---
+
+## 🏁 Conclusion
+
+This database design successfully establishes a robust relational foundation for an e-commerce platform. By modeling core operational entities, enforcing strict primary and foreign key constraints, and applying 3NF normalization guidelines, the system guarantees:
+
+1. **Data Consistency:** Prevents orphaned records via `ON DELETE CASCADE` constraints.
+2. **Elimination of Redundancy:** Decouples user data, products, orders, and payment tracking.
+3. **Historical Accuracy:** Captures explicit line-item unit pricing (`ORDER_ITEM.price`) independently of future product catalog price adjustments (`PRODUCT.price`).
+
+The structured SQL implementation provides a seamless path for integration into modern web backends (e.g., Node.js, Python/Django, or Java Spring Boot).
