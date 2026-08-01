@@ -8,10 +8,9 @@
 ### 🎓 DBMS Academic Project
 
 - **Prepared by:** Vasanthakumar  
-- **Register Number:** `[Your Register Number]`  
-- **Programme / Department:** `[Your Department/Degree, e.g., B.Sc. AI & DS]`  
-- **Institution:** `[Your College / University Name]`  
-
+- **Register Number:** AADS25031  
+- **Programme / Department:** B.sc AI&DS  
+- **Institution:** AMET UNIVERSITY
 ---
 
 ## 📌 Project Overview
