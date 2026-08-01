@@ -101,7 +101,7 @@ The database models core operational workflows including **User Management**, **
 The ER Diagram was modeled using **StarUML** with **Crow's Foot Notation** to visually define cardinality and relational bounds across all tables:
 
 <p align="center">
-  <img src="Amazon-E-Commerce ER Diagram1 jpg_2.jpg" alt="Amazon E-Commerce ER Diagram" width="100%">
+  <img src="./er-diagram.jpg" alt="Amazon E-Commerce ER Diagram" width="100%">
 </p>
 
 ---
