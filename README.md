@@ -4,13 +4,13 @@
 ![SQL](https://img.shields.io/badge/SQL-MySQL-orange?style=for-the-badge&logo=mysql)
 ![Normalization](https://img.shields.io/badge/Database-3NF%20Normalized-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
-
-### 🎓 DBMS Academic Project
+ 
+### 🎓 DBMS Academic Project (TASK-3)
 
 - **Prepared by:** Vasanthakumar  
 - **Register Number:** AADS25031  
 - **Programme / Department:** B.sc AI&DS  
-- **Institution:** AMET UNIVERSITY
+- **Institution:** AMET UNIVERSITY 
 ---
 
 ## 📌 Project Overview
